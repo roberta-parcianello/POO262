@@ -37,6 +37,7 @@ public class App {
             System.out.println(nome.charAt(i));
         }
 
+        //escreve o último caracter
         System.out.println(nome.charAt(nome.length()-1));
 
         String nomes[] = nome.split(" ");
