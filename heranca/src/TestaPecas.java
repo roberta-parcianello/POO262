@@ -10,7 +10,7 @@ public class TestaPecas {
         System.out.println(peca1.getClass());
         peca1.movimento("A5");
         peca1.mostraQtdPecasCriadas();
-       // peca1.mo
+        Torre.mostraQtdTorresCriadas();
 
         System.out.println(peca2.getClass());
         peca2.movimento("A5");

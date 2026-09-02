@@ -17,7 +17,10 @@ public class Torre extends Peca{
         System.out.println("A Torre se movimenta em linhas horizontais ou verticais quantas casas desejar desde que esteja livre");        
     }
     
-    public void mostraQtdTorresCriadas(){
+
+    //método estático é método da classe - só executa com a classe
+    //Torre.mostraQtdTorresCriadas();
+    public static void mostraQtdTorresCriadas(){
         System.out.println("Foram criadas "+qtdTorre + " torres");
     }
    
