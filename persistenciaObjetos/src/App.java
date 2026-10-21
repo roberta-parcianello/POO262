@@ -1,18 +1,49 @@
+import java.util.Scanner;
+
 import arquivocsv.ArquivoProdutoCSV;
 import modelo.Produto;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        System.out.println("Brincando com arquivos csv");
-        
-        Produto p1 = new Produto(3, "monitor", 1000);
-        Produto p2 = new Produto(4, "ssd", 300);
+        Scanner leia = new Scanner(System.in);
+        int op = 0;
         ArquivoProdutoCSV csv = new ArquivoProdutoCSV();
 
-      //  csv.inserir(p1);
-       // csv.inserir(p2);
+        System.out.println("Brincando com arquivos csv");
+        System.out.println("Escolha uma opção:");
 
-       csv.listarComoObjeto();
+        do{
+            System.out.println("1 - inserir produto");
+            System.out.println("2 - Listar produtos");
+            System.out.println("3 - Buscar produto por Id");
+            System.out.println("4 - Alterar produto");
+            System.out.println("5 - Deletar Produto");
+            System.out.println("0 - Sair");
+            op = leia.nextInt();
+            switch (op) {
+                case 1:
+                    Produto produto = new Produto();
+                    System.out.println("Cadastrar Produto");
+                    System.out.print("ID: ");
+                    produto.setId(leia.nextInt());
+                    leia.nextLine();//limpar o buffer
+                    System.out.print("Nome produto: ");
+                    produto.setNome(leia.nextLine());
+                    System.out.print("Preço: R$");
+                    produto.setPreco(leia.nextDouble());
+                    csv.inserir(produto);
+                    leia.nextLine();
+                    leia.nextLine();
+                    break;
+                case 2:
+
+                    break;
+            
+                default:
+                    break;
+            }
+
+        }while(op != 0);
 
     }
 }

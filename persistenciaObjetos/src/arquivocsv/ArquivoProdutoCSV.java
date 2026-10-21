@@ -9,7 +9,7 @@ import java.io.PrintWriter;
 import modelo.Produto;
 
 public class ArquivoProdutoCSV {
-    private String nomeArquivo = "produtos.csv";
+    private String nomeArquivo = "produtos_novo.csv";
 
     public void inserir(Produto produto) {
         try {
@@ -59,7 +59,6 @@ public class ArquivoProdutoCSV {
 
                 System.out.println(produto);
 
-                
                 linha = leitor.readLine();
             }
 
@@ -69,6 +68,57 @@ public class ArquivoProdutoCSV {
             System.out.println(e.getMessage());
         }
 
+    }
+
+    public Produto buscarObjeto(int id) {
+        try {
+            FileReader arquivo = new FileReader(nomeArquivo);
+            BufferedReader leitor = new BufferedReader(arquivo);
+            String linha = leitor.readLine();
+
+            while (linha != null) {
+                String[] dados = linha.split(",");
+                int idArquivo = Integer.parseInt(dados[0]);
+                if (idArquivo == id) {
+                    Produto p = new Produto();
+                    p.setId(idArquivo);
+                    p.setNome(dados[1]);
+                    p.setPreco(Double.parseDouble(dados[2]));
+                    return p;
+                }
+                linha = leitor.readLine();
+            }
+            leitor.close();
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public void deletarProduto(int id){
+        try {
+            FileReader arquivo = new FileReader(nomeArquivo);
+            BufferedReader leitor = new BufferedReader(arquivo);
+            String linha = leitor.readLine();
+
+            while (linha != null) {
+                String[] dados = linha.split(",");
+                int idArquivo = Integer.parseInt(dados[0]);
+                if (idArquivo == id) {
+                    Produto p = new Produto();
+                    p.setId(idArquivo);
+                    p.setNome(dados[1]);
+                    p.setPreco(Double.parseDouble(dados[2]));
+                    
+                }
+                linha = leitor.readLine();
+            }
+            leitor.close();
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 }
