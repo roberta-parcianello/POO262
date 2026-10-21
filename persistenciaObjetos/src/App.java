@@ -36,8 +36,15 @@ public class App {
                     leia.nextLine();
                     break;
                 case 2:
+                    
 
                     break;
+                case 5:
+                     System.out.println("Deletar Produto");
+                     System.out.println("Informe o ID do produto a ser deletado");
+                     int id = leia.nextInt();
+                     csv.deletarProduto(id);
+
             
                 default:
                     break;
