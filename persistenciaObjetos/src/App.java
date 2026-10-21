@@ -36,7 +36,7 @@ public class App {
                     leia.nextLine();
                     break;
                 case 2:
-                    
+                    csv.listar();
 
                     break;
                 case 5:
