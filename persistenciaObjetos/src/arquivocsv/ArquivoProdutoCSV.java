@@ -28,6 +28,10 @@ public class ArquivoProdutoCSV {
         }
     }
 
+    public void carregar()throws IOException{
+        FileReader arquivo =  new FileReader(nomeArquivo); 
+    }
+
     public void listar() {
         try {
             FileReader arquivo = new FileReader(nomeArquivo);
@@ -41,6 +45,20 @@ public class ArquivoProdutoCSV {
 
             leitor.close();
 
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    public void listar2() {//try with resources
+        try(BufferedReader leitor = new BufferedReader(new FileReader(nomeArquivo))) {
+            String linha = leitor.readLine();
+            while (linha != null) {
+                System.out.println(linha);
+                linha = leitor.readLine();
+            }
+            leitor.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -135,11 +153,9 @@ public class ArquivoProdutoCSV {
                 break;
             }
         }
-
         if(removido){
             salvar(produtos);
         }  
-        
         return removido;
     }
 

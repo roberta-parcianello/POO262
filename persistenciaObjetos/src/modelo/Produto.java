@@ -9,10 +9,14 @@ public class Produto {
     }
 
     public Produto(int id, String nome, double preco) {
+        if(preco<0){
+            throw new IllegalArgumentException("Preço não pode ser negativo");
+        }
         this.id = id;
         this.nome = nome;
         this.preco = preco;
     }
+
 
     public int getId() {
         return id;
@@ -35,6 +39,9 @@ public class Produto {
     }
 
     public void setPreco(double preco) {
+        if(preco<0){
+            throw new IllegalArgumentException("Preço não pode ser negativo");
+        }
         this.preco = preco;
     }
    

@@ -22,18 +22,23 @@ public class App {
             op = leia.nextInt();
             switch (op) {
                 case 1:
-                    Produto produto = new Produto();
-                    System.out.println("Cadastrar Produto");
-                    System.out.print("ID: ");
-                    produto.setId(leia.nextInt());
-                    leia.nextLine();//limpar o buffer
-                    System.out.print("Nome produto: ");
-                    produto.setNome(leia.nextLine());
-                    System.out.print("Preço: R$");
-                    produto.setPreco(leia.nextDouble());
-                    csv.inserir(produto);
-                    leia.nextLine();
-                    leia.nextLine();
+                    try{
+                        Produto produto = new Produto();
+                        System.out.println("Cadastrar Produto");
+                        System.out.print("ID: ");
+                        produto.setId(leia.nextInt());
+                        leia.nextLine();//limpar o buffer
+                        System.out.print("Nome produto: ");
+                        produto.setNome(leia.nextLine());
+                        System.out.print("Preço: R$");
+                        produto.setPreco(leia.nextDouble());
+                        csv.inserir(produto);
+                        leia.nextLine();
+                        leia.nextLine();
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                    
                     break;
                 case 2:
                     csv.listar();
@@ -44,6 +49,8 @@ public class App {
                      System.out.println("Informe o ID do produto a ser deletado");
                      int id = leia.nextInt();
                      csv.deletarProduto(id);
+                case 6:
+                    csv.carregar();
 
             
                 default:
