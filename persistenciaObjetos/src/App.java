@@ -22,7 +22,7 @@ public class App {
             op = leia.nextInt();
             switch (op) {
                 case 1:
-                    try{
+                   try{
                         Produto produto = new Produto();
                         System.out.println("Cadastrar Produto");
                         System.out.print("ID: ");
@@ -35,11 +35,14 @@ public class App {
                         csv.inserir(produto);
                         leia.nextLine();
                         leia.nextLine();
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                    }
+                 } catch (Exception e) {
+                       System.out.println(e.getMessage());
+                 } 
+                        
+                break;
                     
-                    break;
+                    
+                    
                 case 2:
                     csv.listar();
 
