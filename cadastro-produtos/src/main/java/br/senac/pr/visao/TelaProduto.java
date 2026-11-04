@@ -25,6 +25,7 @@ public class TelaProduto  extends JFrame{
     private JButton btnSalvar;
     private JButton btnLimpar;
     private JButton btnBuscar;
+    private JButton btnDeletar;
 
     public TelaProduto(){
         setTitle("Cadastro de Produtos");
@@ -43,6 +44,7 @@ public class TelaProduto  extends JFrame{
         btnLimpar = new JButton("Limpar");
         btnSalvar = new JButton("Salvar");
         btnBuscar = new JButton("Buscar");
+        btnDeletar = new JButton("Deletar");
 
         //adicionar no painel na ordem que quero que apareça
         painel.add(lbId);
@@ -54,6 +56,7 @@ public class TelaProduto  extends JFrame{
         painel.add(btnSalvar);
         painel.add(btnLimpar);
         painel.add(btnBuscar);
+        painel.add(btnDeletar);
 
         add(painel);
 
@@ -61,8 +64,33 @@ public class TelaProduto  extends JFrame{
         btnSalvar.addActionListener(e -> salvarProduto());
         btnLimpar.addActionListener(e -> limparCampos());
         btnBuscar.addActionListener(e -> buscarProduto(txtId.getText()));
+        btnDeletar.addActionListener(e -> deletarProduto());
         
         setVisible(true);
+    }
+
+    private void deletarProduto() {
+       ProdutoDAO dao = new ProdutoDAO();
+       try {
+        buscarProduto(txtId.getText());
+        int resp = JOptionPane.showConfirmDialog(this,"Deseja confirmar a exclusão?",
+                                          "Confirmar exclusão",
+                                           JOptionPane.YES_NO_OPTION);
+        if (resp == JOptionPane.YES_OPTION){
+            dao.deletar(Integer.parseInt(txtId.getText()));
+            limparCampos();
+        }else{
+            limparCampos();
+        }
+        
+       } catch (NumberFormatException e) {
+         JOptionPane.showMessageDialog(this, "Informe um id valido");
+       } catch (SQLException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }
+       
+
     }
 
     private void buscarProduto(String id){
