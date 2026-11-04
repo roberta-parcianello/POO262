@@ -1,5 +1,7 @@
 package br.senac.pr.visao;
 
+import java.sql.SQLException;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -8,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import br.senac.pr.arquivocsv.ArquivoProdutoCSV;
+import br.senac.pr.jdbc.ProdutoDAO;
 import br.senac.pr.modelo.Produto;
 
 public class TelaProduto  extends JFrame{
@@ -21,6 +24,7 @@ public class TelaProduto  extends JFrame{
 
     private JButton btnSalvar;
     private JButton btnLimpar;
+    private JButton btnBuscar;
 
     public TelaProduto(){
         setTitle("Cadastro de Produtos");
@@ -38,6 +42,7 @@ public class TelaProduto  extends JFrame{
 
         btnLimpar = new JButton("Limpar");
         btnSalvar = new JButton("Salvar");
+        btnBuscar = new JButton("Buscar");
 
         //adicionar no painel na ordem que quero que apareça
         painel.add(lbId);
@@ -48,30 +53,50 @@ public class TelaProduto  extends JFrame{
         painel.add(txtPreco);
         painel.add(btnSalvar);
         painel.add(btnLimpar);
+        painel.add(btnBuscar);
 
         add(painel);
 
         //evento pro botão salvar
         btnSalvar.addActionListener(e -> salvarProduto());
         btnLimpar.addActionListener(e -> limparCampos());
+        btnBuscar.addActionListener(e -> buscarProduto(txtId.getText()));
         
         setVisible(true);
     }
 
-    private void salvarProduto() {
+    private void buscarProduto(String id){
+        ProdutoDAO dao = new ProdutoDAO();
+        Produto produto;
+        try {
+            produto = dao.buscarProdutoPorId(Integer.parseInt(id));
+            txtNome.setText(produto.getNome());
+            txtPreco.setText(String.valueOf(produto.getPreco()));
+        } catch (NumberFormatException | SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+    }
+
+    private void salvarProduto(){
         try {
             Produto produto = new Produto();
             produto.setId(Integer.parseInt(txtId.getText()));
             produto.setNome(txtNome.getText());
             produto.setPreco(Double.parseDouble(txtPreco.getText()));
 
-            ArquivoProdutoCSV csv = new ArquivoProdutoCSV();
-            csv.inserir(produto);
+           // ArquivoProdutoCSV csv = new ArquivoProdutoCSV();
+           // csv.inserir(produto);
+           ProdutoDAO dao = new ProdutoDAO();
+           dao.inserir(produto);
             JOptionPane.showMessageDialog(this, "Produto Salvo");
             limparCampos();
-        } catch (NumberFormatException e) {
+        }catch (NumberFormatException e) {
            JOptionPane.showMessageDialog(this, e.getMessage());
         }catch(IllegalArgumentException e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }catch(SQLException e){
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }
