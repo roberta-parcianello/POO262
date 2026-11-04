@@ -57,4 +57,23 @@ public class ProdutoDAO {
 
     }
 
+    public boolean deletar(int id) throws SQLException{
+        String sql = "DELETE FROM produtos WHERE id=?";
+        Connection conexao = null;
+        PreparedStatement stmt = null;
+        try {
+            conexao = Conexao.conectar();
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, id);
+            int resp = stmt.executeUpdate();
+            return resp > 0; 
+        } catch (SQLException e) {
+                System.out.println("Erro ao deletar "+e.getMessage());
+        }finally{
+            stmt.close();
+            conexao.close();
+        }
+        return false;
+    }
+
 }
